@@ -53,16 +53,18 @@ jobs:
           python-version: ${{ matrix.pyver }}
           cache: 'pip'
 
-      - name: Setup Mamba
-        uses: conda-incubator/setup-miniconda@v3.0.4
-        with:
-          activate-environment: "build"
-          python-version: ${{ matrix.pyver }}
-          miniforge-variant: Mambaforge
-          miniforge-version: latest
-          use-mamba: true
-          add-pip-as-python-dependency: true
-          auto-activate-base: false
+      - name: Install uv
+        run: pip install uv
+      # - name: Setup Mamba
+      #   uses: conda-incubator/setup-miniconda@v3.0.4
+      #   with:
+      #     activate-environment: "build"
+      #     python-version: ${{ matrix.pyver }}
+      #     miniforge-variant: Mambaforge
+      #     miniforge-version: latest
+      #     use-mamba: true
+      #     add-pip-as-python-dependency: true
+      #     auto-activate-base: false
 
       - name: Install Dependencies
         env:
@@ -70,8 +72,8 @@ jobs:
           MAMBA_NO_LOW_SPEED_LIMIT: "1"
         run: |
           $cudaVersion = $env:CUDAVER
-          mamba install -y 'cuda' -c nvidia/label/cuda-$cudaVersion
-          python -m pip install build wheel
+          uv pip install -y 'cuda' -c nvidia/label/cuda-$cudaVersion
+          uv pip install build wheel
 
       - name: Build Wheel
         working-directory: vendor/llama-cpp-python
