@@ -55,10 +55,22 @@ jobs:
           version: "latest"
           activate-environment: true
 
+      - name: Setup Mamba
+        uses: conda-incubator/setup-miniconda@v3.1.0
+        with:
+          activate-environment: "build"
+          python-version: ${{ matrix.pyver }}
+          miniforge-version: latest
+          add-pip-as-python-dependency: true
+          auto-activate-base: false
+
       - name: Install Dependencies
+        env:
+          MAMBA_DOWNLOAD_FAILFAST: "0"
+          MAMBA_NO_LOW_SPEED_LIMIT: "1"
         run: |
           $cudaVersion = $env:CUDAVER
-          uv pip install 'cuda' -c nvidia/label/cuda-$cudaVersion
+          mamba install -y 'cuda' -c nvidia/label/cuda-$cudaVersion
 
       - name: Build Wheel
         working-directory: vendor/llama-cpp-python
