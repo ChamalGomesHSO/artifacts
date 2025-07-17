@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest,]
-        python-version: ["3.12", "3.13"]
+        python-version: ["3.13"]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -25,16 +25,16 @@ jobs:
           version: "latest"
           activate-environment: true
           python-version: ${{ matrix.python-version }}
-          
-      - name: Install dependencies for Linux
-        working-directory:  ./vendor/llama-cpp-python
-        run: |
-          uv sync --active --extra all
 
       - name: Build source distribution
         working-directory: ./vendor/llama-cpp-python
         run: |
           uv -v build --python cpython@${{ matrix.python-version }} --wheel
+
+          #Add suffix to release files
+          for whl in dist/*.whl; do
+            mv "$whl" "${whl/%.whl/-cpu.whl}"
+          done
 
       - uses: actions/upload-artifact@v4
         with:
@@ -56,12 +56,6 @@ jobs:
           version: "latest"
           activate-environment: true
           python-version: "3.12"
-
-      - name: Install dependencies for Linux
-        working-directory:  ./vendor/llama-cpp-python
-        run: |
-          uv sync --active --extra all
-        shell: bash
 
       - name: Build source distribution
         working-directory: ./vendor/llama-cpp-python
@@ -87,7 +81,6 @@ jobs:
       - uses: softprops/action-gh-release@v2
         with:
           files: dist/*
-          # Set tag_name to <tag>-cpu
-          tag_name: ${{ github.ref_name }}-cpu
+          tag_name: ${{ github.ref_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
