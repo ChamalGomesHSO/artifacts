@@ -91,10 +91,14 @@ jobs:
           # write the build tag to the output
           Write-Output "CUDA_VERSION=$cudaVersion" >> $env:GITHUB_ENV
 
+          #Add suffix to release files
+          for whl in dist/*.whl; do
+            mv "$whl" "${whl%.whl}-cu$CUDAVER.whl"
+          done
+
       - uses: softprops/action-gh-release@v2
         with:
           files: vendor/llama-cpp-python/dist/*
-          # Set tag_name to <tag>-cu<cuda_version>
-          tag_name: ${{ github.ref_name }}-cu${{ env.CUDA_VERSION }}
+          tag_name: ${{ github.ref_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
