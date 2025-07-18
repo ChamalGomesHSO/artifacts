@@ -30,7 +30,7 @@ jobs:
         working-directory: ./vendor/llama-cpp-python
         run: |
           # Rname the pyproject version
-          sed -i 's/^version = "\([^"]*\)"/version = "\1+cpu"/' pyproject.toml
+          export SKBUILD_PROJECT_VERSION="$(git describe --tags --abbrev=0)+cpu"
 
           # Build wheel
           uv -v build --python cpython@${{ matrix.python-version }} --wheel
