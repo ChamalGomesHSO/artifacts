@@ -86,16 +86,13 @@ jobs:
           $env:CMAKE_ARGS = "-DGGML_CUDA_FORCE_MMQ=OFF $env:CMAKE_ARGS"
           $env:CMAKE_ARGS = $env:CMAKE_ARGS + ' -DGGML_AVX2=off -DGGML_FMA=off -DGGML_F16C=off'
 
+          # Rename the release version with +cu{cuda_version} build tag
+          (Get-Content llama_cpp/__init__.py) -replace '__version__ = "([^"]+)"', "__version__ = `"$1+cu$cudaVersion`"" | Set-Content llama_cpp/__init__.py
+
           uv -v build --python cpython@${{ matrix.pyver }} --wheel
           
           # write the build tag to the output
           Write-Output "CUDA_VERSION=$cudaVersion" >> $env:GITHUB_ENV
-
-          #Rename wheel with cuda suffix
-          Get-ChildItem dist/*.whl | ForEach-Object {
-            $newName = $_.Name.Replace('.whl', "-cu$env:CUDAVER.whl")
-            Rename-Item $_.FullName -NewName $newName
-          }
 
       - uses: softprops/action-gh-release@v2
         with:

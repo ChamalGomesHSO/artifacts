@@ -29,7 +29,7 @@ jobs:
       - name: Build source distribution
         working-directory: ./vendor/llama-cpp-python
         run: |
-          # Rname the pyproject version
+          # Rename the release version with +cpu build tag
           sed -i 's/__version__ = "\([^"]*\)"/__version__ = "\1+cpu"/' llama_cpp/__init__.py
 
           # Build wheel
