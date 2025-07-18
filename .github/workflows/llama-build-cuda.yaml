@@ -86,7 +86,10 @@ jobs:
           $env:CMAKE_ARGS = "-DGGML_CUDA_FORCE_MMQ=OFF $env:CMAKE_ARGS"
           $env:CMAKE_ARGS = $env:CMAKE_ARGS + ' -DGGML_AVX2=off -DGGML_FMA=off -DGGML_F16C=off'
 
-          (Get-Content llama_cpp/__init__.py) -replace '__version__ = "([^"]*)"', '__version__ = "$1+cu${cuda_version}"' | Set-Content llama_cpp/__init__.py
+          # Rename the release version with +cu{cuda_ver} build tag
+          (Get-Content llama_cpp/__init__.py) -replace '__version__ = "([^"]*)"', '__version__ = "$1+cu$cudaVersion"' | Set-Content llama_cpp/__init__.py
+          
+          #Build wheel
           uv -v build --python cpython@${{ matrix.pyver }} --wheel
           
           # write the build tag to the output
