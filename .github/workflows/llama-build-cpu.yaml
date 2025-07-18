@@ -30,7 +30,7 @@ jobs:
         working-directory: ./vendor/llama-cpp-python
         run: |
           # Rname the pyproject version
-          sed -i '' 's/__version__ = "\([^"]*\)"/__version__ = "\1+cpu"/' llama_cpp/__init__.py
+          sed -i 's/__version__ = "\([^"]*\)"/__version__ = "\1+cpu"/' llama_cpp/__init__.py
 
           # Build wheel
           uv -v build --python cpython@${{ matrix.python-version }} --wheel
