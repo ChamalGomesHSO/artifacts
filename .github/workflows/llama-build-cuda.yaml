@@ -91,10 +91,11 @@ jobs:
           # write the build tag to the output
           Write-Output "CUDA_VERSION=$cudaVersion" >> $env:GITHUB_ENV
 
-          #Add suffix to release files
-          for whl in dist/*.whl; do
-            mv "$whl" "${whl%.whl}-cu$CUDAVER.whl"
-          done
+          #Rename wheel with cuda suffix
+          Get-ChildItem dist/*.whl | ForEach-Object {
+            $newName = $_.Name.Replace('.whl', "-cu$env:CUDAVER.whl")
+            Rename-Item $_.FullName -NewName $newName
+          }
 
       - uses: softprops/action-gh-release@v2
         with:
