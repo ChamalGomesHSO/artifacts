@@ -31,10 +31,12 @@ jobs:
         run: |
           uv -v build --python cpython@${{ matrix.python-version }} --wheel
 
-          #Add suffix to release files
+          #Add local build tag +cpu to release files
           for whl in dist/*.whl; do
-            mv "$whl" "${whl/%.whl/-cpu.whl}"
+            base="${whl%.whl}"
+            mv "$whl" "${base/+/-}+cpu.whl"
           done
+
 
       - uses: actions/upload-artifact@v4
         with:
