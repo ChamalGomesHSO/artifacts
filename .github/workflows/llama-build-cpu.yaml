@@ -29,14 +29,11 @@ jobs:
       - name: Build source distribution
         working-directory: ./vendor/llama-cpp-python
         run: |
+          # Rname the pyproject version
+          sed -i 's/^version = "\([^"]*\)"/version = "\1+cpu"/' pyproject.toml
+
+          # Build wheel
           uv -v build --python cpython@${{ matrix.python-version }} --wheel
-
-          #Add local build tag +cpu to release files
-          for whl in dist/*.whl; do
-            base="${whl%.whl}"
-            mv "$whl" "${base/+/-}+cpu.whl"
-          done
-
 
       - uses: actions/upload-artifact@v4
         with:
