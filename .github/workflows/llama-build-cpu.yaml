@@ -29,12 +29,11 @@ jobs:
       - name: Build source distribution
         working-directory: ./vendor/llama-cpp-python
         run: |
-          uv -v build --python cpython@${{ matrix.python-version }} --wheel
+          # Rename the release version with +cpu build tag
+          sed -i 's/__version__ = "\([^"]*\)"/__version__ = "\1+cpu"/' llama_cpp/__init__.py
 
-          #Add suffix to release files
-          for whl in dist/*.whl; do
-            mv "$whl" "${whl/%.whl/-cpu.whl}"
-          done
+          # Build wheel
+          uv -v build --python cpython@${{ matrix.python-version }} --wheel
 
       - uses: actions/upload-artifact@v4
         with:
