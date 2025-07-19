@@ -24,6 +24,7 @@ jobs:
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
 
+          git checkout -b feat/${{ github.sha }}
           git submodule update --remote --merge
           git add .
           git diff --quiet && echo "No changes" && exit 0
