@@ -1,3 +1,4 @@
 [submodule "vendor/llama-cpp-python"]
 	path = vendor/llama-cpp-python
 	url = git@github.com:abetlen/llama-cpp-python.git
+	branch = main
