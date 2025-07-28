@@ -8,6 +8,7 @@ All artifacts are uploaded as binaries to the release tagged v0.0.1
 # Llama-cpp-python custom pre-built wheels
 
 - Current pre-built wheels do not support tesla v100 due to CMAKE args settings used within llama-cpp-python CUDA wheel release process. Uploaded artifact aims to  overrid the said CMAKE args and build CUDA compatible pre-built wheels. (ref: git@github.com:abetlen/llama-cpp-python.git)
+- See more info on CMAKE ARGs being used here https://github.com/ggml-org/llama.cpp/blob/7f97599581fcf0c37432dd3b1f503b91bed97695/docs/build.md#unified-memory
 - Also aims to fixe a musl linux bug in the llama-cpp-python CPU pre-built wheel as well.
 
 # Instructions for a new CUDA release
