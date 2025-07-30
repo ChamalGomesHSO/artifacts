@@ -1,0 +1,35 @@
+name: Update Git Submodules
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-submodules:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout with submodules
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Update and create PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+
+          git checkout -b feat/${{ github.sha }}
+          git submodule update --recursive --remote --force
+  
+          git add .
+          git diff --quiet && echo "No changes" && exit 0
+          git commit -m "chore: update submodules"
+
+          git push origin feat/${{ github.sha }}
+          gh pr create --title "Update submodules" --body "Update submodules" --base ${{ github.ref }} --head feat/${{ github.sha }}
