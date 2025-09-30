@@ -12,7 +12,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest,]
+        os: [ubuntu-latest, windows-2025]
         python-version: ["3.13"]
     steps:
       - uses: actions/checkout@v4
@@ -37,7 +37,7 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: wheels-py${{ matrix.python-version }}
+          name: wheels-py${{ matrix.python-version }}-${{ matrix.os }}
           path: ./vendor/llama-cpp-python/dist/*.whl
 
 
@@ -83,3 +83,6 @@ jobs:
           tag_name: ${{ github.ref_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+
