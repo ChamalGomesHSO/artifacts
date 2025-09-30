@@ -37,7 +37,7 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: wheels-py${{ matrix.python-version }}
+          name: wheels-py${{ matrix.python-version }}-${{ matrix.os }}
           path: ./vendor/llama-cpp-python/dist/*.whl
 
 
@@ -83,4 +83,5 @@ jobs:
           tag_name: ${{ github.ref_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 
