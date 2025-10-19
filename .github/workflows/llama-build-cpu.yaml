@@ -12,8 +12,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-2025]
-        python-version: ["3.14"]
+        os: [ubuntu-latest] # windows-2025
+        python-version: ["3.13", "3.14"]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -91,6 +91,7 @@ jobs:
       - uses: actions/attest-build-provenance@v3
         with:
           subject-path: 'dist/*'
+
 
 
 
