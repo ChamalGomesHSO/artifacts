@@ -21,7 +21,7 @@ jobs:
         run: |
           $matrix = @{
               'os' = @('ubuntu-latest')
-              'pyver' = @("3.14")
+              'pyver' = @("3.13", "3.14")
               'cuda' = @("12.8.1") #12.9.0 >= is not supported (12.8.1 works)
               'releasetag' = @("basic")
           }
@@ -33,6 +33,10 @@ jobs:
     name: Build Wheel ${{ matrix.os }} ${{ matrix.pyver }} ${{ matrix.cuda }} ${{ matrix.releasetag == 'wheels' && 'AVX2' || matrix.releasetag }}
     needs: define_matrix
     runs-on: ${{ matrix.os }}
+    permissions:
+      id-token: write
+      contents: write
+      attestations: write
     strategy:
       matrix: ${{ fromJSON(needs.define_matrix.outputs.matrix) }}
     defaults:
@@ -101,6 +105,12 @@ jobs:
           tag_name: ${{ github.ref_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/attest-build-provenance@v3
+        with:
+          subject-path: 'vendor/llama-cpp-python/dist/*'
+
+
 
 
 

@@ -12,8 +12,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-2025]
-        python-version: ["3.14"]
+        os: [ubuntu-latest] # windows-2025
+        python-version: ["3.13", "3.14"]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -70,6 +70,10 @@ jobs:
     name: Release
     needs: [build_wheels, build_sdist]
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write
+      attestations: write
 
     steps:
       - uses: actions/download-artifact@v4
@@ -83,6 +87,13 @@ jobs:
           tag_name: ${{ github.ref_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/attest-build-provenance@v3
+        with:
+          subject-path: 'dist/*'
+
+
+
 
 
 
