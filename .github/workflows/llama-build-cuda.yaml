@@ -21,7 +21,7 @@ jobs:
         run: |
           $matrix = @{
               'os' = @('ubuntu-latest')
-              'pyver' = @("3.14")
+              'pyver' = @("3.13", "3.14")
               'cuda' = @("12.8.1") #12.9.0 >= is not supported (12.8.1 works)
               'releasetag' = @("basic")
           }
@@ -109,6 +109,7 @@ jobs:
       - uses: actions/attest-build-provenance@v3
         with:
           subject-path: 'vendor/llama-cpp-python/dist/*'
+
 
 
 
