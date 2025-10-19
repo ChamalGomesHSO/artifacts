@@ -72,7 +72,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       id-token: write
-      contents: read
+      contents: write
       attestations: write
 
     steps:
@@ -91,6 +91,7 @@ jobs:
       - uses: actions/attest-build-provenance@v3
         with:
           subject-path: 'dist/*'
+
 
 
 
