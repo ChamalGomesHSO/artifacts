@@ -101,14 +101,15 @@ jobs:
 
       - uses: softprops/action-gh-release@v2
         with:
-          files: vendor/llama-cpp-python/dist/*
+          files: vendor/llama-cpp-python/dist/*.whl
           tag_name: ${{ github.ref_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: actions/attest-build-provenance@v3
         with:
-          subject-path: 'vendor/llama-cpp-python/dist/*'
+          subject-path: 'vendor/llama-cpp-python/dist/*.whl'
+
 
 
 
