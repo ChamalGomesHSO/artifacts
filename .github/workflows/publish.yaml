@@ -43,6 +43,6 @@ jobs:
           UV_PUBLISH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           uv publish dist/* \
-            --publish-url https://pypi.pkg.github.com/${{ github.repository_owner }} \
+            --publish-url https://pypi.pkg.github.com/${{ github.repository }} \
             --token $UV_PUBLISH_TOKEN \
             --verbose
