@@ -42,7 +42,7 @@ jobs:
         env:
           UV_PUBLISH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          uv publish dist/* \
+          uv publish dist/llama_cpp_python-0.3.16.tar.gz \
             --publish-url https://pypi.pkg.github.com/${{ github.repository }} \
             --token $UV_PUBLISH_TOKEN \
             --verbose
