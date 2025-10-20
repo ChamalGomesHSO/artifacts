@@ -91,10 +91,3 @@ jobs:
       - uses: actions/attest-build-provenance@v3
         with:
           subject-path: 'dist/*'
-
-
-
-
-
-
-
