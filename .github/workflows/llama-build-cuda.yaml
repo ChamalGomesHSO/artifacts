@@ -94,7 +94,7 @@ jobs:
           (Get-Content llama_cpp/__init__.py) -replace '__version__ = "([^"]*)"', ('__version__ = "' + '$1' + '+cu' + $cudaVersion + '"') | Set-Content llama_cpp/__init__.py
           
           #Build wheel
-          uv -v build --python cpython@${{ matrix.pyver }} --wheel
+          uv -v build --no-create-gitignore --python cpython@${{ matrix.pyver }} --wheel
           
           # write the build tag to the output
           Write-Output "CUDA_VERSION=$cudaVersion" >> $env:GITHUB_ENV
@@ -109,6 +109,7 @@ jobs:
       - uses: actions/attest-build-provenance@v3
         with:
           subject-path: 'vendor/llama-cpp-python/dist/*.whl'
+
 
 
 
