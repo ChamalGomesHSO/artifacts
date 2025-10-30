@@ -33,7 +33,7 @@ jobs:
           sed -i 's/__version__ = "\([^"]*\)"/__version__ = "\1+cpu"/' llama_cpp/__init__.py
 
           # Build wheel
-          uv -v build --python cpython@${{ matrix.python-version }} --wheel
+          uv -v build --no-create-gitignore --python cpython@${{ matrix.python-version }} --wheel
 
       - uses: actions/upload-artifact@v4
         with:
@@ -59,7 +59,7 @@ jobs:
       - name: Build source distribution
         working-directory: ./vendor/llama-cpp-python
         run: |
-          uv -v build --sdist
+          uv -v build --no-create-gitignore --sdist
 
       - uses: actions/upload-artifact@v4
         with:
@@ -91,3 +91,4 @@ jobs:
       - uses: actions/attest-build-provenance@v3
         with:
           subject-path: 'dist/*'
+
