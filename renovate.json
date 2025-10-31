@@ -10,11 +10,11 @@
   "separateMinorPatch": false,
   "separateMajorMinor": true,
   "prConcurrentLimit": 5,
-  "prHourlyLimit": 0,
+  "prHourlyLimit": 2,
   "commitMessagePrefix": "chore(deps):",
   "commitMessageAction": "update",
   "commitMessageTopic": "{{depName}}",
-  "commitMessageExtra": "to {{newValue}}",
+  "commitMessageExtra": "from {{currentValue}} to {{newValue}}",
   "lockFileMaintenance": {
     "enabled": false
   }
