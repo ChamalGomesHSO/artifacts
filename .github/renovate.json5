@@ -1,0 +1,19 @@
+{
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: [
+    'config:recommended',
+  ],
+  packageRules: [
+    {
+      description: 'Pin GitHub Actions to digests',
+      extends: [
+        'helpers:pinGitHubActionDigests',
+      ],
+      pinDigests: true,
+      labels: [
+        'CICD',
+        'ignore-for-release',
+      ],
+    },
+  ],
+}
