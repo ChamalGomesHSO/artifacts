@@ -7,12 +7,10 @@
     "pinDigests": true,
     "addLabels": ["dependencies", "github-actions"]
   },
-  "pinDigests": true,
   "separateMinorPatch": false,
   "separateMajorMinor": true,
   "prConcurrentLimit": 5,
   "prHourlyLimit": 0,
-  "labels": ["dependencies"],
   "commitMessagePrefix": "chore(deps):",
   "commitMessageAction": "update",
   "commitMessageTopic": "{{depName}}",
