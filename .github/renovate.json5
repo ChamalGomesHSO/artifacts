@@ -9,7 +9,6 @@
       extends: [
         'helpers:pinGitHubActionDigests',
       ],
-      pinDigests: true,
       labels: [
         'CICD',
         'ignore-for-release',
