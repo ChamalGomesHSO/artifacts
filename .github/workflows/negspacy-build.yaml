@@ -1,0 +1,91 @@
+name: Build Negspacy Release
+
+on: workflow_dispatch
+
+permissions:
+  contents: write
+
+jobs:
+  
+  build_wheels:
+    name: wheels ${{ matrix.os }} and py-${{ matrix.python-version }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        python-version: ["3.13", "3.14"]
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
+        with:
+          submodules: "recursive"
+
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@85856786d1ce8acfbcc2f13a5f3fbd6b938f9f41 # v7
+        with:
+          version: "latest"
+          activate-environment: true
+          python-version: ${{ matrix.python-version }}
+
+      - name: Build wheel
+        working-directory: ./vendor/negspacy
+        run: |
+          # Build wheel
+          uv -v build --no-create-gitignore --python cpython@${{ matrix.python-version }} --wheel
+
+      - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
+        with:
+          name: wheels-py${{ matrix.python-version }}-${{ matrix.os }}
+          path: ./vendor/negspacy/dist/*.whl
+
+
+  build_sdist:
+    name: Build Source Distribution
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
+        with:
+          submodules: "recursive"
+
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@85856786d1ce8acfbcc2f13a5f3fbd6b938f9f41 # v7
+        with:
+          version: "latest"
+          activate-environment: true
+          python-version: "3.12"
+
+      - name: Build source distribution
+        working-directory: ./vendor/negspacy
+        run: |
+          uv -v build --no-create-gitignore --sdist
+
+      - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
+        with:
+          name: sdist
+          path:  ./vendor/negspacy/dist/*.tar.gz
+
+  release:
+    name: Release
+    needs: [build_wheels, build_sdist]
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write
+      attestations: write
+
+    steps:
+      - uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6
+        with:
+          merge-multiple: true
+          path: dist
+
+      - uses: softprops/action-gh-release@6da8fa9354ddfdc4aeace5fc48d7f679b5214090 # v2
+        with:
+          files: dist/*
+          tag_name: ${{ github.ref_name }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a # v3
+        with:
+          subject-path: 'dist/*'
+

@@ -2,3 +2,6 @@
 	path = vendor/llama-cpp-python
 	url = git@github.com:abetlen/llama-cpp-python.git
 	branch = main
+[submodule "vendor/negspacy"]
+	path = vendor/negspacy
+	url = https://github.com/jenojp/negspacy.git
