@@ -11,6 +11,12 @@ All artifacts are uploaded as binaries to the release tagged v0.0.1
 - See more info on CMAKE ARGs being used here https://github.com/ggml-org/llama.cpp/blob/master/docs/build.md#unified-memory
 - Also aims to fixe a musl linux bug in the llama-cpp-python CPU pre-built wheel as well.
 
+# Negspacy pre-built wheels
+
+- Negspacy is a spaCy pipeline component for negation detection (ref: https://github.com/jenojp/negspacy)
+- Pre-built wheels are generated using the `negspacy-build.yaml` workflow
+- The negspacy repository is included as a git submodule in the vendor folder
+
 # Instructions for a new CUDA release
 - Run "git submodule update --remote --merge" to update to latest llama_cpp version and commit/push the change
 - Update workflow to chose your preferred CUDA/Python/OS version
