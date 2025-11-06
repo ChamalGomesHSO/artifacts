@@ -1,7 +1,7 @@
 ## Artifacts
 
 This repo is created to easily build binaries related to common LLM/NLP libraries. Before doing a release for any package, refer to following key steps, 
-1. Run `git submodule update --remote --merge` to update all submodules.
+1. Run `update-submodules.yaml` to update all submodules.
 2. Update the respective workflow to choose your preferred CUDA/Python/OS version.
 3. Create a new release, including a description with the latest source package version.
 4. Run the desired workflow file.
@@ -13,10 +13,10 @@ Provide custom-built CUDA-compatible wheels that override the default CMAKE args
 **References:**
 - Source: [llama-cpp-python](https://github.com/abetlen/llama-cpp-python)
 - CMAKE documentation: [llama.cpp build guide](https://github.com/ggml-org/llama.cpp/blob/master/docs/build.md#unified-memory)
-- Pre-built wheels are generated using the `llama-cpu.yaml` or `llama-cuda.yaml` workflows
+- Pre-built wheels are generated using the `llama-build-cpu.yaml` or `llama-build-cuda.yaml` workflows
 - CUDA Support & Architecture Compatibility for different GPUs:
        ```bash
-       -DCMAKE_CUDA_ARCHITECTURE=70;75;80
+       -DCMAKE_CUDA_ARCHITECTURE=75;80
        ```
 
 | Compute Capability | CUDA Architecture | GPUs                        | Supported CUDA Versions                | Azure Support |
@@ -26,7 +26,7 @@ Provide custom-built CUDA-compatible wheels that override the default CMAKE args
 | **sm_70 / sm_72**  | Volta            | Tesla V100, Jetson AGX Xavier| ✅ **12.8.x** *(deprecated in 13.x)*   | ❌            |
 | **sm_75**          | Turing           | RTX 2080, T4                | ✅ **12.8.x**                           | ✅            |
 | **sm_80**          | Ampere           | A100                        | ✅ **12.8.x**                           | ✅            |
-| **sm_86**          | Ampere           | RTX 3090, A100              | ✅ **12.8.x**                           | ✅            |
+| **sm_86**          | Ampere           | RTX 3090,                   | ✅ **12.8.x**                           | ✅            |
 | **sm_89 / sm_90**  | Ada / Hopper     | RTX 4090, H100              | ✅ 12.8.x and 13.x                      | ✅            |
 
 
