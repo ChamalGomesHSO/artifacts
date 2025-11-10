@@ -2,9 +2,6 @@ name: Build Release (CUDA)
 
 on: workflow_dispatch
 
-env:
-  GCC_VERSION: 13
-
 permissions:
   contents: write
 
@@ -23,7 +20,7 @@ jobs:
         id: set-matrix
         run: |
           $matrix = @{
-              'os' = @('ubuntu-latest')
+              'os' = @('ubuntu-24.04')
               'pyver' = @("3.13")
               'cuda' = @("12.8.1") #12.9.0 >= is not supported (12.8.1 works)
               'releasetag' = @("basic")
@@ -54,13 +51,8 @@ jobs:
         with:
           submodules: "recursive"
 
-      - name: Set GCC Version
-        uses: egor-tensin/setup-gcc@eaa888eb19115a521fa72b65cd94fe1f25bbcaac # v1
-        with:
-          version: ${{ env.GCC_VERSION }}
-
-      - name: Verify GCC version
-        run: gcc --version
+      - name: Verify GLIBC version
+        run: ldd --version
 
       - name: Install the latest version of uv
         uses: astral-sh/setup-uv@85856786d1ce8acfbcc2f13a5f3fbd6b938f9f41 # v7
@@ -120,6 +112,4 @@ jobs:
       - uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a # v3
         with:
           subject-path: 'vendor/llama-cpp-python/dist/*.whl'
-
-
 
