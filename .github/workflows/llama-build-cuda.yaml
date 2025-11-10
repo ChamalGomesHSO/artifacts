@@ -9,8 +9,6 @@ jobs:
   define_matrix:
     name: Define Build Matrix
     runs-on: ubuntu-latest
-    container:
-      image: gcc:13.4.0@sha256:7a158265e3c3efe117d6930d796bbaeaa6a17f7fd372cc1167056e594b3e5205
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     defaults:
@@ -35,6 +33,8 @@ jobs:
     name: Build Wheel ${{ matrix.os }} ${{ matrix.pyver }} ${{ matrix.cuda }} ${{ matrix.releasetag == 'wheels' && 'AVX2' || matrix.releasetag }}
     needs: define_matrix
     runs-on: ${{ matrix.os }}
+    container:
+      image: gcc:13.4.0
     permissions:
       id-token: write
       contents: write
@@ -114,6 +114,7 @@ jobs:
       - uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a # v3
         with:
           subject-path: 'vendor/llama-cpp-python/dist/*.whl'
+
 
 
 
