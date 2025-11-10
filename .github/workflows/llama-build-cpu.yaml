@@ -2,6 +2,9 @@ name: Build Release (CPU)
 
 on: workflow_dispatch
 
+env:
+  GCC_VERSION: 11
+      
 permissions:
   contents: write
 
@@ -22,7 +25,7 @@ jobs:
       - name: Set GCC Version
         uses: egor-tensin/setup-gcc@v1
         with:
-          version: 13
+          version: ${{ env.GCC_VERSION }}
 
       - name: Verify GCC version
         run: gcc --version
@@ -99,3 +102,4 @@ jobs:
       - uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a # v3
         with:
           subject-path: 'dist/*'
+
