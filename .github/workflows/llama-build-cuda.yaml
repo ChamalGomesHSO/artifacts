@@ -54,7 +54,7 @@ jobs:
       - uses: egor-tensin/setup-gcc@v1
         with:
           version: 13
-          
+
       - name: Verify GCC version
         run: gcc --version
         
