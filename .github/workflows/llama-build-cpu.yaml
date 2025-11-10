@@ -4,7 +4,7 @@ on: workflow_dispatch
 
 env:
   GCC_VERSION: 11
-      
+
 permissions:
   contents: write
 
@@ -29,7 +29,7 @@ jobs:
 
       - name: Verify GCC version
         run: gcc --version
-        
+      run:
       - name: Install the latest version of uv
         uses: astral-sh/setup-uv@85856786d1ce8acfbcc2f13a5f3fbd6b938f9f41 # v7
         with:
