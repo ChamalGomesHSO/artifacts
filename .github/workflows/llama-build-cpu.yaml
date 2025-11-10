@@ -13,12 +13,20 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest] # windows-2025
-        python-version: ["3.13", "3.14"]
+        python-version: ["3.13"]
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
         with:
           submodules: "recursive"
 
+      - name: Set GCC Version
+        uses: egor-tensin/setup-gcc@v1
+        with:
+          version: 13
+
+      - name: Verify GCC version
+        run: gcc --version
+        
       - name: Install the latest version of uv
         uses: astral-sh/setup-uv@85856786d1ce8acfbcc2f13a5f3fbd6b938f9f41 # v7
         with:
@@ -91,4 +99,5 @@ jobs:
       - uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a # v3
         with:
           subject-path: 'dist/*'
+
 
