@@ -28,7 +28,7 @@ jobs:
 
       - name: Verify GCC version
         run: gcc --version
-      run:
+
       - name: Install the latest version of uv
         uses: astral-sh/setup-uv@85856786d1ce8acfbcc2f13a5f3fbd6b938f9f41 # v7
         with:
@@ -101,5 +101,6 @@ jobs:
       - uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a # v3
         with:
           subject-path: 'dist/*'
+
 
 
