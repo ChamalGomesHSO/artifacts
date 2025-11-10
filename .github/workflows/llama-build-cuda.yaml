@@ -9,6 +9,8 @@ jobs:
   define_matrix:
     name: Define Build Matrix
     runs-on: ubuntu-latest
+    container:
+      image: gcc:13.4.0@sha256:7a158265e3c3efe117d6930d796bbaeaa6a17f7fd372cc1167056e594b3e5205
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     defaults:
@@ -21,7 +23,7 @@ jobs:
         run: |
           $matrix = @{
               'os' = @('ubuntu-latest')
-              'pyver' = @("3.13", "3.14")
+              'pyver' = @("3.13")
               'cuda' = @("12.8.1") #12.9.0 >= is not supported (12.8.1 works)
               'releasetag' = @("basic")
           }
@@ -50,6 +52,9 @@ jobs:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
         with:
           submodules: "recursive"
+
+      - name: Verify GCC version
+        run: gcc --version
 
       - name: Install the latest version of uv
         uses: astral-sh/setup-uv@85856786d1ce8acfbcc2f13a5f3fbd6b938f9f41 # v7
@@ -109,6 +114,7 @@ jobs:
       - uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a # v3
         with:
           subject-path: 'vendor/llama-cpp-python/dist/*.whl'
+
 
 
 
