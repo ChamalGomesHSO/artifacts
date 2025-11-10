@@ -2,9 +2,6 @@ name: Build Release (CUDA)
 
 on: workflow_dispatch
 
-env:
-  GCC_VERSION: 13
-
 permissions:
   contents: write
 
@@ -115,3 +112,4 @@ jobs:
       - uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a # v3
         with:
           subject-path: 'vendor/llama-cpp-python/dist/*.whl'
+
