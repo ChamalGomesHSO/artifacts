@@ -53,7 +53,7 @@ jobs:
 
       - uses: egor-tensin/setup-gcc@v1
         with:
-          version: 14
+          version: 13
           
       - name: Verify GCC version
         run: gcc --version
@@ -116,6 +116,7 @@ jobs:
       - uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a # v3
         with:
           subject-path: 'vendor/llama-cpp-python/dist/*.whl'
+
 
 
 
