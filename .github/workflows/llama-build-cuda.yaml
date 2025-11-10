@@ -52,7 +52,7 @@ jobs:
           submodules: "recursive"
 
       - name: Set GCC Version
-        uses: egor-tensin/setup-gcc@v1.3.0
+        uses: egor-tensin/setup-gcc@v1
         with:
           version: 13.4.0
 
@@ -117,3 +117,4 @@ jobs:
       - uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a # v3
         with:
           subject-path: 'vendor/llama-cpp-python/dist/*.whl'
+
