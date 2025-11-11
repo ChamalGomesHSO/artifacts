@@ -75,7 +75,7 @@ jobs:
           MAMBA_NO_LOW_SPEED_LIMIT: "1"
         run: |
           $cudaVersion = $env:CUDAVER
-          mamba install -y 'cudatoolkit=12.8.1' -c nvidia
+          mamba install -y 'cuda-toolkit=12.8.1' -c nvidia
 
       - name: Build Wheel
         working-directory: vendor/llama-cpp-python
@@ -112,6 +112,7 @@ jobs:
       - uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a # v3
         with:
           subject-path: 'vendor/llama-cpp-python/dist/*.whl'
+
 
 
 
