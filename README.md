@@ -19,15 +19,15 @@ Provide custom-built CUDA-compatible wheels that override the default CMAKE args
        -DCMAKE_CUDA_ARCHITECTURE=75;80
        ```
 
-| Compute Capability | CUDA Architecture | GPUs                        | Supported CUDA Versions                | Azure Support |
-|--------------------|------------------|-----------------------------|-----------------------------------------|---------------|
-| **sm_50**          | Maxwell          | GTX 750, Tesla M40          | ≤ 11.x *(deprecated)*                   | ❌            |
-| **sm_60 / sm_61**  | Pascal           | GTX 1080, Tesla P100        | ≤ 12.2 *(deprecated in 12.3+)*          | ❌            |
-| **sm_70 / sm_72**  | Volta            | Tesla V100, Jetson AGX Xavier| ✅ **12.8.x** *(deprecated in 13.x)*   | ❌            |
-| **sm_75**          | Turing           | RTX 2080, T4                | ✅ **12.8.x**                           | ✅            |
-| **sm_80**          | Ampere           | A100                        | ✅ **12.8.x**                           | ✅            |
-| **sm_86**          | Ampere           | RTX 3090,                   | ✅ **12.8.x**                           | ✅            |
-| **sm_89 / sm_90**  | Ada / Hopper     | RTX 4090, H100              | ✅ 12.8.x and 13.x                      | ✅            |
+| Compute Capability | CUDA Architecture | GPUs                        | Azure Support |
+|--------------------|------------------|------------------------------|---------------|
+| **sm_50**          | Maxwell          | GTX 750, Tesla M40           | ❌            |
+| **sm_60 / sm_61**  | Pascal           | GTX 1080, Tesla P100         | ❌            |
+| **sm_70 / sm_72**  | Volta            | Tesla V100, Jetson AGX Xavier| ❌            |
+| **sm_75**          | Turing           | RTX 2080, T4                 | ✅            |
+| **sm_80**          | Ampere           | A100                         | ✅            |
+| **sm_86**          | Ampere           | RTX 3090,                    | ✅            |
+| **sm_89 / sm_90**  | Ada / Hopper     | RTX 4090, H100               | ✅            |
 
 
 ## Negspacy 
