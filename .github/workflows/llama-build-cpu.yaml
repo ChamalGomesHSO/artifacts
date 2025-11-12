@@ -12,7 +12,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-22.04] # windows-2025
-        python-version: ["3.13", "3.14"]
+        python-version: ["3.14"]
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
         with:
@@ -93,4 +93,5 @@ jobs:
       - uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a # v3
         with:
           subject-path: 'dist/*'
+
 
